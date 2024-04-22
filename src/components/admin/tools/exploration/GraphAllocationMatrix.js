@@ -27,7 +27,7 @@ const GraphAllocationMatrix = () => {
       project_id: localStorage.getItem("projectId")
     }
     
-    axios.post(`${apiUrl}/get-vars-names`, data, { headers: headers})
+    axios.post(`${apiUrl}/forecast/get-vars-names`, data, { headers: headers})
     .then(res => {
       setVariablesNames(res.data);
       
