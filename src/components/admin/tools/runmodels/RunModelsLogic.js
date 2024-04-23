@@ -101,7 +101,7 @@ const RunModelsLogicContainer = ({apiUrl, token}) => {
             formData.pred_p = "12";
             setAdditionalParams({
                 'prophet_params': ["additive", 10, 1000, 0.05],
-                'arima_params':[0, 0, 0]
+                'arima_params':[1, 1, 0]
             })
 
         } else {
