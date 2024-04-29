@@ -24,11 +24,9 @@ const InventoryContainer = () => {
     const [scenarios, setScenarios] = useState([]);
 
     const fetchData = (headers, type, params) => {
-        axios.post(`${apiUrl}/forecast/stock-data`, 
+        axios.post(`${apiUrl}/forecast/stock-data/`, 
         {
             project_id: localStorage.getItem("projectId"), 
-            order: "", 
-            filters: "", 
             type: type,
             params: params
         }, {headers})
@@ -193,7 +191,7 @@ const InventoryContainer = () => {
                     }
 
                     {!loader ? 
-                        <TrafficLightContainer data={trafficLight} /> 
+                        <TrafficLightContainer data={trafficLight} params={stockParams}/> 
                         : 
                         <div className='d-flex flex-column justify-content-start align-items-start w-auto gap-2'>  
                             <h5 className='text-primary'>Tabla de stock por producto</h5>
