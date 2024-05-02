@@ -32,7 +32,6 @@ const InventoryContainer = () => {
         }, {headers})
         .then(res => {
             setData(res.data.data); 
-            //res.data.is_zero && showWariningAlert("El calculo no será preciso, calcule primero el stock de seguridad y vuelva a subir su data", "No hay stock de seguridad");
             setTrafficLight(res.data.traffic_light);
         })
         .catch(err => {
