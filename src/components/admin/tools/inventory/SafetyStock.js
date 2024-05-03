@@ -29,7 +29,7 @@ const SafetyStock = () => {
         const dataToSend = {
             "columns": Object.keys(data[0]),
             "rows": data.map(obj => Object.values(obj)),
-            "file_name": `Reapro`,
+            "file_name": `StockDeSeguridad`,
             "project_pk": parseInt(localStorage.getItem("projectId"))
         };
         
