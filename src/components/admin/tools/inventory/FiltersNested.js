@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { showErrorAlert } from "../../../other/Alerts";
 import {
@@ -7,11 +7,14 @@ import {
     MDBInput,
 } from 'mdb-react-ui-kit';
 import Table from "./TableWithAvg";
+import { AppContext } from '../../../../context/Context';
+import TotalTable from "./TotalTable";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const FiltersNested = ({data}) => {
     const [orderedData, setOrderedData] = useState(data);
+    const {optionsFilterTable, setOptionsFilterTable} = useContext(AppContext);
 
     // Function for download excel
     const handleDownload = (urlPath) => {
@@ -50,6 +53,11 @@ const FiltersNested = ({data}) => {
         setOrderedData(filteredData);
     };
 
+    const handleSetFilters = () => {
+        setOrderedData(data);
+        setOptionsFilterTable([]);
+    }
+
     if (!data || data.length === 0) {
         return <div></div>;
     };
@@ -80,8 +88,22 @@ const FiltersNested = ({data}) => {
                 </div>
             
             </div>
-            
+
+            <div className="d-flex w-100 justify-content-between align-items-center">
+                <div className='d-flex justify-content-start align-items-center gap-5 w-auto'>
+                    {optionsFilterTable.map((opt, index) => (
+                        Object.entries(opt).map(([key, value]) => (
+                            <p key={index} className='text-primary'>{`${key}: ${value}`}</p>
+                        ))
+                    ))}
+                </div>
+
+                <p style={{"cursor": "pointer"}} onClick={handleSetFilters}>Reestablecer filtros</p>
+            </div>
+
             <Table data={orderedData} setData={setOrderedData}/>
+
+            <TotalTable data={orderedData}/>
         </div>
     );
 }
