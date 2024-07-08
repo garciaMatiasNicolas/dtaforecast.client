@@ -25,7 +25,9 @@ const RunModelsVisual = (props) => {
         handleOptChange,
         isSelected,
         isExpert,
-        setExpertModel
+        setExpertModel,
+        detectOutliers,
+        setExplosiveVariable
     } = props
 
     return (
@@ -100,7 +102,7 @@ const RunModelsVisual = (props) => {
                                         <MDBInput label="Periodos sin entrenamiento de modelo" name="test_p" type="number" onChange={handleInputChange} disabled={isExpert} />
                                         <MDBInput label="Periodos de forecast" name="pred_p" type="number" onChange={handleInputChange} disabled={isExpert} />
                                         <MDBInput label="Periodos para calculo de error (recomendado 0 = todos)" name="error_p" type="number" onChange={handleInputChange} disabled={isExpert} />
-                                        <select onChange={handleSelectChange} class="form-select" aria-label="Seleccionar archivo para la corrida">
+                                        <select onChange={handleSelectChange} className="form-select" aria-label="Seleccionar archivo para la corrida">
                                             <option selected>Selecciona tipo de archivo</option>
                                             {fileTypes.map((fileType) => (
                                                 <option value={fileType.id}>{convertData(fileType.model_type, true)}</option>
@@ -121,6 +123,18 @@ const RunModelsVisual = (props) => {
                                             <MDBRadio name='error' id='MAE' label='MAE'  inline
                                             onChange={handleOptChange}/>
                                         </div>
+                                        <div className="w-100 mt-4 mb-4">
+                                            <p className="text-primary">Detectar valores atipicos</p>
+                                            <MDBRadio  onChange={detectOutliers} name='outliers' id='yes' label='Si' inline defaultChecked />
+                                            <MDBRadio onChange={detectOutliers} name='outliers' id='no' label='No'  inline />
+                                        </div>
+                                        <select style={{maxWidth: "280px", alignSelf: "start"}} onChange={setExplosiveVariable} className="form-select" aria-label="Seleccionar archivo para la corrida">
+                                            <option selected>Porcentaje variable explosiva</option>
+                                            <option value={0}>0%</option>
+                                            <option value={2.5}>25%</option>
+                                            <option value={5}>50%</option>
+                                            <option value={7.5}>75%</option>
+                                        </select>
                                         <ParamsArima isModelSelected={isSelected} lastScenariosParams={lastScenarioRan} setAdditionalParams={areParamsSetted}/>
                                        {/*  <ParamsHolts isModelSelected={isSelected} areParamsSetted={areParamsSetted}/> */}
                                     </MDBCol>
@@ -161,4 +175,3 @@ const RunModelsVisual = (props) => {
 }
 
 export default RunModelsVisual
-
