@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "../../../components/admin/tools/inventory/TableWithAvg";
+import TrafficLightChart from "../../../components/admin/tools/inventory/TrafficLightChart";
 import { MDBBtn } from "mdb-react-ui-kit";
 import axios from "axios";
 import { showErrorAlert } from "../../../components/other/Alerts";
@@ -53,11 +54,11 @@ const TrafficLightContainer = ({data, params}) => {
         const data = {
             filter_name: e.target.value,
             scenario_id: params["scenario_id"],
-            project_id: localStorage.getItem("projectId") ,
+            project: localStorage.getItem("projectId") ,
             filter_value: "x"
         };
 
-        axios.post(`${apiUrl}/forecast/get-filters`, data, { headers })
+        axios.post(`${apiUrl}/forecast/get-filters-historical`, data, { headers })
         .then(res => setOptionsFilter(res.data))
         .catch(err => console.log(err));
     };
